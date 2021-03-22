@@ -4,6 +4,8 @@ const toyFormContainer = document.querySelector(".container")
 const toyCollection = document.querySelector("#toy-collection")
 const addNewToyButton = document.querySelector("#new-toy-btn")
 
+
+
 fetch("http://localhost:3000/toys")
     .then(res => res.json())
     .then(function(toys){
@@ -28,25 +30,26 @@ function turnToyToDiv(toy) {
   toyDiv.append(h2, toyImage, p, likeButton)
   toyCollection.append(toyDiv)
 
-  addNewToyButton.addEventListener("click", () => {
-     fetch(`http://localhost:3000/toys/${toy}`,
-      {
-        method: "POST",
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body:JSON.stringify({
-          "name": "Optimus Prime",
-          "image": "https://cdn.shopify.com/s/files/1/0169/6995/7440/products/F0662xxxx_DIO_TRA_KINGDOM_OPTIMUSPRIME_2_Online_300DPI_1024x1024.jpg?v=1601047458",
-          "likes": 99
-        })
-      }
-     )
+  addNewToyButton.addEventListener("click", function () {
+      fetch(`http://localhost:3000/toys/`,
+        {
+          method: "POST",
+          headers: {
+            'Content-type': 'application/json',
+            Accept: "application/json"
+          },
+          body: JSON.stringify({
+            "name": "Optimus Prime",
+            "image": "https://cdn.shopify.com/s/files/1/0169/6995/7440/products/F0662xxxx_DIO_TRA_KINGDOM_OPTIMUSPRIME_2_Online_300DPI_1024x1024.jpg?v=1601047458",
+            "likes": 99
+          })
+        }
+      )
         .then(res => res.json())
-        .then(function(addedToy){
-          console.log(addedToy)
-        })
-    
+        .then(function (addNewToy) {
+          console.log(addNewToy)
+        });
+
       addToy = !addToy;
       if (addToy) {
         toyFormContainer.style.display = "block";
