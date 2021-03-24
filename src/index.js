@@ -3,7 +3,7 @@ let addToy = false;
 const toyFormContainer = document.querySelector(".container")
 const toyCollection = document.querySelector("#toy-collection")
 const addNewToyButton = document.querySelector("#new-toy-btn")
-
+const submitButton = document.querySelector("submit")
 
 fetch("http://localhost:3000/toys")
 .then(res => res.json())
@@ -23,7 +23,7 @@ function turnToyToDiv(toy) {
   toyImage.className = "toy-avatar"
   h2.innerText = toy.name
   toyDiv.className = "card"
-  p.innerText = toy.likes
+  p.innerText = `${toy.likes} likes`
   likeButton.className = "like-btn"
   likeButton.innerText = "Like this!"
   toyDiv.append(h2, toyImage, p, likeButton)
@@ -49,33 +49,36 @@ function turnToyToDiv(toy) {
     })
 }
 
-addNewToyButton.addEventListener("click", function () {
-  fetch(`http://localhost:3000/toys/`,
-    {
-      method: "POST",
-      headers: {
-        'Content-type': 'application/json',
-        Accept: "application/json"
-      },
-      body: JSON.stringify({
-        "name": "Optimus Prime",
-        "image": "https://cdn.shopify.com/s/files/1/0169/6995/7440/products/F0662xxxx_DIO_TRA_KINGDOM_OPTIMUSPRIME_2_Online_300DPI_1024x1024.jpg?v=1601047458",
-        "likes": 3
-      })
-    }
-  )
-    .then(res => res.json())
-    .then(function (addToy) {
-      toyCollection.append(addToy)
-//         addToy = !addToy;
-//         if (addToy) {
-//           toyFormContainer.style.display = "block";
-//         } else {
-//         toyFormContainer.style.display = "none";
-//         }
-     })
- })
 
 
 
+addNewToyButton.addEventListener("click", function(){
+  addToy = !addToy;
+  if (addToy) {
+    toyFormContainer.style.display = "block";
+  } else {
+    toyFormContainer.style.display = "none";
+  }
+  // addNewToyButton.addEventListener("click", function () {
+  // evt.PreventDefault() 
+  // fetch(`http://localhost:3000/toys/`,
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         'Content-type': 'application/json',
+  //         Accept: "application/json"
+  //       },
+  //       body: JSON.stringify({
+  //         "name": "Optimus Prime",
+  //         "image": "https://cdn.shopify.com/s/files/1/0169/6995/7440/products/F0662xxxx_DIO_TRA_KINGDOM_OPTIMUSPRIME_2_Online_300DPI_1024x1024.jpg?v=1601047458",
+  //         "likes": 3
+  //       })
+  //     }
+  //   )
+  //     .then(res => res.json())
+  //     .then(function (newToy) {
+  //       function(newToy)
+  //     })
+  //   })
+  })
 
